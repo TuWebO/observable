@@ -1,0 +1,9 @@
+name = Observable
+description = Observable pattern
+core = 7.x
+
+dependencies[] = xautoload
+dependencies[] = entity
+
+files[] = src/Controller/observer.php
+files[] = src/Controller/observable.php

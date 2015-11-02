@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * Implements hook_entity_info().
+ */
+function observer_storage_entity_info() {
+  $info = array();
+
+  $info['observable'] = array(
+    'label' => t('Observable'),
+    'base table' => 'observable',
+    'entity keys' => array(
+      'id' => 'id',
+    ),
+    'entity class' => '\Entity',
+    'controller class' => 'Drupal\observer_storage\Controller\ObservableStorageController',
+  );
+
+  $info['observer'] = array(
+    'label' => t('Observer'),
+    'base table' => 'observer',
+    'entity keys' => array(
+      'id' => 'id',
+    ),
+    'entity class' => '\Entity',
+    'controller class' => 'Drupal\observer_storage\Controller\ObserverStorageController',
+  );
+
+  return $info;
+
+}

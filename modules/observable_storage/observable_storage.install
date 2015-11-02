@@ -1,0 +1,107 @@
+<?php
+
+
+/**
+ * Implements hook_schema().
+ */
+function observable_storage_schema() {
+
+  $schema = array();
+
+  $schema['observable'] = array(
+    'description' => 'The base table for the observable entity',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key of the ObservableStorage entity',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'has_changed' => array(
+        'description' => 'Boolean indicating whether the observable has been flagged as changed.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'status' => array(
+        'description' => 'Boolean indicating whether the node is published (visible to non-administrators).',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 1,
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the node was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'changed' => array(
+        'description' => 'The Unix timestamp when the node was most recently saved.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  $schema['observer'] = array(
+    'description' => 'The base table for the observer of the ObservableStorage entity. Observers need an Observable for exist',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key of the ObservableStorage entity',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'status' => array(
+        'description' => 'Boolean indicating whether the node is published (visible to non-administrators).',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 1,
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the node was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'changed' => array(
+        'description' => 'The Unix timestamp when the node was most recently saved.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  $schema['observers'] = array(
+    'description' => 'The base table for the observable to keep track of the observers',
+    'fields' => array(
+      'observable_id' => array(
+        'description' => 'The Observable id.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'observer_id' => array(
+        'description' => 'The Observer id.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+    ),
+    'foreign keys' => array(
+      'observable_id' => array(
+        'table' => 'observable',
+        'columns' => array('observable_id' => 'id'),
+      ),
+      'observer_id' => array(
+        'table' => 'observer',
+        'columns' => array('observer_id' => 'id'),
+      ),
+    ),
+    'primary key' => array('observer_id', 'observable_id'),
+  );
+
+  return $schema;
+}

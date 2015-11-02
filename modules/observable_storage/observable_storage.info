@@ -1,0 +1,9 @@
+name = Observable storage
+description = Observable storage
+core = 7.x
+
+dependencies[] = observable
+
+
+files[] = src/Controller/ObservableStorageController.php
+files[] = src/Controller/ObserverStorageController.php
